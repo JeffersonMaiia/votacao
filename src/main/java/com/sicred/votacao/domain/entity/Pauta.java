@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
+import java.util.Set;
 import java.util.UUID;
 
 @Getter
@@ -25,11 +26,20 @@ public class Pauta {
     @Column(name = "data_encerramento")
     private LocalDateTime dataEncerramento;
 
+    @Enumerated(EnumType.STRING)
+    private PautaStatusEnum status;
+
     @PrePersist
     public void prePersist() {
         if(this.dataEncerramento == null){
             this.dataEncerramento = LocalDateTime.now().plusMinutes(1);
         }
         this.dataCriacao = LocalDateTime.now();
+        this.status = PautaStatusEnum.ABERTA;
+    }
+
+
+    public boolean isPautaAberta() {
+        return PautaStatusEnum.ABERTA.equals(this.status);
     }
 }

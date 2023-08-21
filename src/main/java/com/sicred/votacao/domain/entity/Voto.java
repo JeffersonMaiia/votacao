@@ -17,6 +17,9 @@ public class Voto {
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
 
+    @Column(unique = true)
+    private String cpf;
+
     @Enumerated(EnumType.STRING)
     private VotoEnum voto;
 
@@ -24,10 +27,11 @@ public class Voto {
     private LocalDateTime dataCriacao;
 
     @ManyToOne
-    @JoinColumn(name = "associado_cpf")
-    private Associado associado;
-
-    @ManyToOne
-    @JoinColumn(name = "pauta_id")
+    @JoinColumn(name = "pauta_id", unique = true)
     private Pauta pauta;
+
+    @PrePersist
+    public void prePersist() {
+        this.dataCriacao = LocalDateTime.now();
+    }
 }

@@ -1,7 +1,7 @@
-package com.sicred.votacao.mapper;
+package com.sicred.votacao.config.mapper;
 
-import com.sicred.votacao.controller.request.PautaRequestDTO;
-import com.sicred.votacao.controller.response.PautaResponseDTO;
+import com.sicred.votacao.controller.v1.request.PautaRequestDTO;
+import com.sicred.votacao.controller.v1.response.PautaResponseDTO;
 import com.sicred.votacao.domain.entity.Pauta;
 import org.mapstruct.Mapper;
 

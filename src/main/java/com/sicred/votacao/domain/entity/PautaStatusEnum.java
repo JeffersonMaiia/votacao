@@ -5,10 +5,10 @@ import lombok.Getter;
 
 @Getter
 @AllArgsConstructor
-public enum VotoEnum {
+public enum PautaStatusEnum {
 
-    SIM("Sim"),
-    NAO("Não");
+    ABERTA("ABERTA"),
+    ENCERRADA("ENCERRADA");
 
-    private final String descricao;
+    private String status;
 }

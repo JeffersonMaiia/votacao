@@ -1,6 +1,7 @@
 package com.sicred.votacao.domain.service;
 
 import com.sicred.votacao.domain.entity.Pauta;
+import com.sicred.votacao.domain.exception.NaoEncontradoExeption;
 import com.sicred.votacao.domain.repository.PautaRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -20,5 +21,12 @@ public class PautaService {
 
     public List<Pauta> findAll() {
         return this.pautaRepository.findAll();
+    }
+
+    public boolean isPautaAberta(UUID id) {
+        Pauta pauta = this.pautaRepository.findById(id)
+                .orElseThrow(() -> new NaoEncontradoExeption("Pauta não encontrada!"));
+
+        return pauta.isPautaAberta();
     }
 }

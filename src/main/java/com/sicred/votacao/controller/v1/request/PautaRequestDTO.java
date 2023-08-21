@@ -1,4 +1,4 @@
-package com.sicred.votacao.controller.request;
+package com.sicred.votacao.controller.v1.request;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.validation.constraints.NotBlank;

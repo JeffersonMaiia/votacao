@@ -9,6 +9,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -24,7 +25,7 @@ class PautaServiceTest {
     @Test
     void deveSalvarUmaPauta() {
         final var pauta = Fixture.random(Pauta.class);
-        when(pautaRepository.save(pauta)).thenReturn(pauta);
+        when(pautaRepository.save(any(Pauta.class))).thenReturn(pauta);
 
         this.pautaService.save(pauta);
 
