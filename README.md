@@ -56,9 +56,18 @@ A documentação da API pode ser acessada através do link abaixo:
   * O formato para incluir data e dd/MM/yyyy HH:mm:ss
   * ````
     {
-    "nome": "NOVA PAUTA",
-    "dataEncerramento": "22/08/2023 12:55:00"
+       "nome": "NOVA PAUTA",
+       "dataEncerramento": "22/08/2023 12:55:00"
     }
+    
+* Existe 3 serviços
+    * Você cadastra a Pauta com a data de encerramento 
+      * POST - v1/pauta
+    * Você lista todas as pautas com o status e a soma dos votos
+      * GET  - v1/pauta
+    * Você realiza o vota na pauta
+      * POST - v1/voto
+
 
 ## Testes Unitários e de Integração
 
