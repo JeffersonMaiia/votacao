@@ -12,7 +12,7 @@ import java.util.UUID;
 
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("/voto")
+@RequestMapping("v1/voto")
 public class VotoController {
 
     private final VotoService votoService;

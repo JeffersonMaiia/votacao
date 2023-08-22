@@ -1,8 +1,7 @@
 package com.sicred.votacao.controller.v1.api;
 
 import com.sicred.votacao.controller.v1.request.PautaRequestDTO;
-import com.sicred.votacao.controller.v1.response.PautaResponseDTO;
-import com.sicred.votacao.domain.dto.VotoDTO;
+import com.sicred.votacao.domain.dto.PautaVotoDTO;
 import io.swagger.v3.oas.annotations.OpenAPIDefinition;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.info.Info;
@@ -24,17 +23,10 @@ public interface PautaAPI {
     })
     UUID novaPauta(PautaRequestDTO pautaRequestDTO);
 
-    @Operation(summary = "Obter todas as pautas")
+    @Operation(summary = "Obter todas as pautas com votos")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "OK"),
             @ApiResponse(responseCode = "500", description = "Internal Server Error", content = @Content)
     })
-    List<PautaResponseDTO> findAll();
-
-    @Operation(summary = "Obter a contagem de votos por pauta")
-    @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "OK"),
-            @ApiResponse(responseCode = "500", description = "Internal Server Error", content = @Content)
-    })
-    List<VotoDTO> findVotosByPautaId(UUID id);
+    List<PautaVotoDTO> findAllPautasComVotos();
 }

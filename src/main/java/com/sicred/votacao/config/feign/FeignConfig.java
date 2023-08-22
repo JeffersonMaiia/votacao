@@ -1,4 +1,4 @@
-package com.sicred.votacao.config;
+package com.sicred.votacao.config.feign;
 
 import com.sicred.votacao.domain.exception.RegraNegocioException;
 import feign.codec.ErrorDecoder;

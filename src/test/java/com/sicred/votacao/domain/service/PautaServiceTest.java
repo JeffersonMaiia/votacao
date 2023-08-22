@@ -31,15 +31,4 @@ class PautaServiceTest {
 
         verify(pautaRepository).save(pauta);
     }
-
-    @Test
-    void deveRetornarTodosAsPautas() {
-        final var pautas = Fixture.randomList(Pauta.class, 10);
-        when(pautaRepository.findAll()).thenReturn(pautas);
-
-        this.pautaService.findAll();
-
-        verify(pautaRepository).findAll();
-    }
-
 }

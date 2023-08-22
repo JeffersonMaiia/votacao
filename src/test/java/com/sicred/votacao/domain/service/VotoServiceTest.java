@@ -9,7 +9,6 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.internal.stubbing.answers.ThrowsException;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.util.UUID;
@@ -30,31 +29,13 @@ class VotoServiceTest {
     @Mock
     private VotoRepository votoRepository;
     @Mock
-    private CpfService cpfService;
-    @Mock
     private PautaService pautaService;
-
-    @Test
-    void deveValidarCpf() {
-        var voto = Fixture.random(Voto.class);
-        voto.getPauta().setStatus(PautaStatusEnum.ABERTA);
-
-        when(cpfService.isAbleToVote(anyString())).thenReturn(false);
-
-        Throwable throwable = catchThrowable(() -> votoService.votar(voto));
-
-        assertThat(throwable)
-                .isNotNull()
-                .hasMessage("CPF Inválido")
-                .isExactlyInstanceOf(RegraNegocioException.class);
-    }
 
     @Test
     void deveValidarPautaAberta() {
         var voto = Fixture.random(Voto.class);
         voto.getPauta().setStatus(PautaStatusEnum.ENCERRADA);
 
-        when(cpfService.isAbleToVote(anyString())).thenReturn(true);
         when(pautaService.isPautaAberta(any(UUID.class))).thenReturn(false);
 
         Throwable throwable = catchThrowable(() -> votoService.votar(voto));
@@ -70,7 +51,6 @@ class VotoServiceTest {
         var voto = Fixture.random(Voto.class);
         voto.getPauta().setStatus(PautaStatusEnum.ABERTA);
 
-        when(cpfService.isAbleToVote(anyString())).thenReturn(true);
         when(pautaService.isPautaAberta(any(UUID.class))).thenReturn(true);
         when(votoRepository.existsVotoByCpfAndPautaId(anyString(), any(UUID.class))).thenReturn(true);
 
@@ -87,7 +67,6 @@ class VotoServiceTest {
         var voto = Fixture.random(Voto.class);
         voto.getPauta().setStatus(PautaStatusEnum.ABERTA);
 
-        when(cpfService.isAbleToVote(anyString())).thenReturn(true);
         when(pautaService.isPautaAberta(any(UUID.class))).thenReturn(true);
         when(votoRepository.existsVotoByCpfAndPautaId(anyString(), any(UUID.class))).thenReturn(false);
         when(votoRepository.save(any(Voto.class))).thenReturn(voto);

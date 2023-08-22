@@ -1,5 +1,6 @@
 package com.sicred.votacao.domain.service;
 
+import com.sicred.votacao.domain.dto.PautaVotoDTO;
 import com.sicred.votacao.domain.entity.Pauta;
 import com.sicred.votacao.domain.exception.NaoEncontradoExeption;
 import com.sicred.votacao.domain.repository.PautaRepository;
@@ -19,14 +20,26 @@ public class PautaService {
         return this.pautaRepository.save(pauta).getId();
     }
 
-    public List<Pauta> findAll() {
-        return this.pautaRepository.findAll();
-    }
-
     public boolean isPautaAberta(UUID id) {
         Pauta pauta = this.pautaRepository.findById(id)
                 .orElseThrow(() -> new NaoEncontradoExeption("Pauta não encontrada!"));
 
         return pauta.isPautaAberta();
+    }
+
+    public List<PautaVotoDTO> listarPautasComVotos() {
+        return this.pautaRepository.findAllPautaVotos();
+    }
+
+    public List<PautaVotoDTO> listarPautasComVotosEncerradas() {
+        return this.pautaRepository.findAllPautaVotosProntosParaEncerrar();
+    }
+
+    public void encerrarPauta(UUID id){
+        Pauta pauta = this.pautaRepository.findById(id)
+                .orElseThrow(() -> new NaoEncontradoExeption("Pauta não encontrada!"));
+
+        pauta.encerrar();
+        this.pautaRepository.save(pauta);
     }
 }

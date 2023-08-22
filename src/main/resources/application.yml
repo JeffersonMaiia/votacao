@@ -1,6 +1,8 @@
 spring:
+  main:
+    allow-bean-definition-overriding: true
   datasource:
-    url: jdbc:postgresql://localhost:5432/votacao_db
+    url: jdbc:postgresql://votacao-postgresql:5432/votacao_db
     username: votacao
     password: 42dAz4s3X8yB
   jpa:
@@ -9,8 +11,22 @@ spring:
     properties:
       hibernate:
         dialect: org.hibernate.dialect.PostgreSQLDialect
+  kafka:
+    producer:
+      bootstrap-servers: localhost:9092
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+    consumer:
+      bootstrap-servers: localhost:9092
+      group-id: votacao
+      auto-offset-reset: earliest
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
 
 # swagger-ui custom path
 springdoc:
   swagger-ui:
     path: /swagger-ui.html
+
+kafka:
+  enable: true

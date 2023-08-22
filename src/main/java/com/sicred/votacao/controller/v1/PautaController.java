@@ -1,12 +1,10 @@
 package com.sicred.votacao.controller.v1;
 
+import com.sicred.votacao.config.mapper.PautaMapper;
 import com.sicred.votacao.controller.v1.api.PautaAPI;
 import com.sicred.votacao.controller.v1.request.PautaRequestDTO;
-import com.sicred.votacao.controller.v1.response.PautaResponseDTO;
-import com.sicred.votacao.domain.dto.VotoDTO;
+import com.sicred.votacao.domain.dto.PautaVotoDTO;
 import com.sicred.votacao.domain.service.PautaService;
-import com.sicred.votacao.domain.service.VotoService;
-import com.sicred.votacao.config.mapper.PautaMapper;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -22,7 +20,6 @@ public class PautaController implements PautaAPI {
 
     private final PautaService pautaService;
     private final PautaMapper pautaMapper;
-    private final VotoService votoService;
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
@@ -36,16 +33,7 @@ public class PautaController implements PautaAPI {
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
     @Override
-    public List<PautaResponseDTO> findAll() {
-        var pautas = pautaService.findAll();
-
-        return pautaMapper.toResponse(pautas);
-    }
-
-    @GetMapping("/{id}")
-    @ResponseStatus(HttpStatus.OK)
-    @Override
-    public List<VotoDTO> findVotosByPautaId(@PathVariable UUID id) {
-        return votoService.listarVotosPorPauta(id);
+    public List<PautaVotoDTO> findAllPautasComVotos() {
+        return pautaService.listarPautasComVotos();
     }
 }

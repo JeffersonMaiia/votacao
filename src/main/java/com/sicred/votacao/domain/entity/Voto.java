@@ -10,14 +10,13 @@ import java.util.UUID;
 @Setter
 @Getter
 @Entity
-@Table(name = "voto")
+@Table(name = "voto", uniqueConstraints = {@UniqueConstraint(columnNames = {"cpf", "pauta_id"})})
 public class Voto {
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
 
-    @Column(unique = true)
     private String cpf;
 
     @Enumerated(EnumType.STRING)
@@ -27,7 +26,7 @@ public class Voto {
     private LocalDateTime dataCriacao;
 
     @ManyToOne
-    @JoinColumn(name = "pauta_id", unique = true)
+    @JoinColumn(name = "pauta_id")
     private Pauta pauta;
 
     @PrePersist

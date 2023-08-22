@@ -29,6 +29,9 @@ public class Pauta {
     @Enumerated(EnumType.STRING)
     private PautaStatusEnum status;
 
+    @OneToMany(mappedBy = "pauta", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private Set<Voto> votos;
+
     @PrePersist
     public void prePersist() {
         if(this.dataEncerramento == null){
@@ -40,6 +43,11 @@ public class Pauta {
 
 
     public boolean isPautaAberta() {
-        return PautaStatusEnum.ABERTA.equals(this.status);
+        return PautaStatusEnum.ABERTA.equals(this.status) &&
+                LocalDateTime.now().isBefore(this.dataEncerramento);
+    }
+
+    public void encerrar() {
+        this.status = PautaStatusEnum.ENCERRADA;
     }
 }
